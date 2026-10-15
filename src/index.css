@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+@keyframes purpleToBlueShift {
+  0%, 100% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.45));
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 16px rgba(59, 130, 246, 0.45));
+  }
+}
+
+.dream-builder-gradient {
+  background: linear-gradient(135deg, #a855f7, #818cf8, #3b82f6, #6366f1, #a855f7);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: purpleToBlueShift 4.5s ease-in-out infinite;
+  display: inline-block;
+}
+

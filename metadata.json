@@ -1,0 +1,6 @@
+{
+  "name": "Dreams",
+  "description": "Duolingo-styled gamified AI study companion and coding mentor that handles schoolwork so you can focus on your dreams.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

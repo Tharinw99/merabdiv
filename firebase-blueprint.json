@@ -1,0 +1,130 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with gamified stats like streak, XP, and gems",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The Firebase Auth UID of the user"
+        },
+        "streak": {
+          "type": "number",
+          "description": "Daily active streak count"
+        },
+        "xp": {
+          "type": "number",
+          "description": "Experience points earned through learning and quizzes"
+        },
+        "gems": {
+          "type": "number",
+          "description": "Duolingo style gem currency"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update ISO timestamp"
+        }
+      },
+      "required": ["userId", "streak", "xp", "gems"]
+    },
+    "ChatSession": {
+      "title": "ChatSession",
+      "description": "A saved conversation thread in Dreams",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique session identifier"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of session owner"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the chat session",
+          "maxLength": 120
+        },
+        "mode": {
+          "type": "string",
+          "description": "Active AI Mode: answers, casual, or study",
+          "enum": ["answers", "casual", "study"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of creation"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last activity"
+        }
+      },
+      "required": ["id", "userId", "title", "mode", "createdAt", "updatedAt"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "An individual message within a chat session",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique message ID"
+        },
+        "chatId": {
+          "type": "string",
+          "description": "ID of the parent chat session"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Author UID"
+        },
+        "role": {
+          "type": "string",
+          "description": "Sender role",
+          "enum": ["user", "assistant", "system"]
+        },
+        "content": {
+          "type": "string",
+          "description": "Text content of the message",
+          "maxLength": 10000
+        },
+        "mode": {
+          "type": "string",
+          "description": "Mode when sent: answers, casual, or study"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Optional attached image data or URL"
+        },
+        "quizData": {
+          "type": "string",
+          "description": "JSON string containing interactive multiple choice quiz if applicable"
+        },
+        "tokenEstimate": {
+          "type": "number",
+          "description": "Estimated token count for this exchange"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["id", "chatId", "userId", "role", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/profiles/{profileId}": {
+      "schema": "UserProfile",
+      "description": "Private profile of the user storing gamification progress"
+    },
+    "/users/{userId}/chats/{chatId}": {
+      "schema": "ChatSession",
+      "description": "User's saved chat sessions"
+    },
+    "/users/{userId}/chats/{chatId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Messages belonging to a chat session"
+    }
+  }
+}
